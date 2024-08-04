@@ -36,12 +36,22 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to fiverr https://fiverr-04nh.onrender.com, Please sign up or log in to continue");
+});
+
+
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
 
   return res.status(errorStatus).send(errorMessage);
 });
+
+app.use('*', (req, res) => {
+  res.status(404).send({ message: 'Resource URL not found', success: false, data: null });
+});
+
 
 app.listen(8800, () => {
   connect();
